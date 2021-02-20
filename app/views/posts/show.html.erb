@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+
+<h1><%= @post.title %></h1>
+<h6><%= @post.username %> on <span><%= @post.created_at %></span></h6>
+<p>
+  <%= simple_format @post.content %>
+</p>
+
+<%= link_to 'Back', posts_path %>
