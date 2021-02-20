@@ -4,6 +4,11 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all.reverse_order.limit(50)
+
+    respond_to do |format|
+      format.html
+      format.json { render :index }
+    end
   end
 
   # GET /posts/1 or /posts/1.json

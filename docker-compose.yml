@@ -11,8 +11,13 @@ services:
     environment:
       POSTGRES_PASSWORD: password
 
+  redis:
+    image: redis
+    restart: unless-stopped
+
   web:
     build: .
+    image: simple_blog
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true
     tty: true
@@ -23,3 +28,14 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - sidekiq
+
+  sidekiq:
+    image: simple_blog
+    command: bash -c "bundle exec sidekiq"
+    working_dir: /opt/app
+    volumes:
+      - .:/opt/app
+    depends_on:
+      - db
+      - redis
