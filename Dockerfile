@@ -1,6 +1,14 @@
 FROM ruby:2.7
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client npm
-RUN npm install --global yarn
+
+RUN apt-get update -qq && apt-get install -y postgresql-client apt-utils vim
+
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get update -qq && apt-get install -y nodejs
+
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install yarn
+
 WORKDIR /opt/app
 
 COPY Gemfile /opt/app/Gemfile
@@ -16,4 +24,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]

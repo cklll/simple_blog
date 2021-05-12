@@ -26,9 +26,16 @@ services:
       - .:/opt/app
     ports:
       - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      WEB_CONCURRENCY: 1
+      REDIS_ENDPOINT: redis
+      REDIS_PASSWORD: '' # only used in production
+      REDIS_PORT: 6379
+      REDIS_DB: 0
     depends_on:
       - db
-      - sidekiq
+      - redis
 
   sidekiq:
     image: simple_blog
@@ -36,6 +43,11 @@ services:
     working_dir: /opt/app
     volumes:
       - .:/opt/app
+    environment:
+      REDIS_ENDPOINT: redis
+      REDIS_PORT: 6379
+      REDIS_DB: 0
     depends_on:
       - db
       - redis
+      - web # need to send request to web
