@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-blog
+spec:
+  selector:
+    matchLabels:
+      app: simple-blog
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: simple-blog
+    spec:
+      containers:
+        - name: nginx
+          image: kinlong/simple_blog_nginx:master-20210513-5866078
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
