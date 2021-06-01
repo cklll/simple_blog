@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: simple-blog-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: migration
+        image: kinlong/simple_blog_rails:20210527-master-c028ed7
+        command: ["bundle",  "exec", "rails", "db:migrate"]
+        envFrom:
+          - secretRef:
+              name: simple-blog
+      restartPolicy: Never
+  backoffLimit: 0 # do not retry if failed

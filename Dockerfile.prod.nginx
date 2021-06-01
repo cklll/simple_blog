@@ -1,6 +1,15 @@
+ARG rails_image
+FROM ${rails_image}
+
+
 FROM nginx:1.19
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# actually can use shared volume in k8s
+# so we don't need multi-stage build
+# can be done later
+COPY --from=0 /opt/app/public /usr/share/nginx/html
 
 EXPOSE 80
 

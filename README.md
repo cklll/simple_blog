@@ -1,24 +1,39 @@
-# README
+# Rails Blog
+This is a simple Rails app for learning Kubernetes.
+- Kubernetes
+- NGINX
+- Puma
+- Rails
+- Postgres
+- Redis
+- Sidekiq
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Local Development
+No K8s (yet?). It's a simple docker-comopose.
 
-* Ruby version
+## Deployment
+### Build Image and Push
+```sh
+./ops/build_container.sh
+```
+### Deploy new image
+Update the corresponding `ops/k8s/file.yml` to the new image and run
+```sh
+kubectl apply -f ops/k8s/file.yml
+```
 
-* System dependencies
+### Update K8s secrets
+I am using ansible-vault to store the secrets.
+```
+pip install -r requirements.txt
+ansible-vault edit ops/k8s/secrets.yml
+```
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## TODO
+- Set up cron job to create post regularly
+- Set up cron job to delete very old post (to keep DB small)
+- Not use ansible-vault to store K8s secret. Use something like HashiCorp Vault
+- Run Redis on K8s (learning purpose)
+- Run PostgreSQL on K8s (learning purpose)

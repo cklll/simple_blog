@@ -12,9 +12,38 @@ spec:
       labels:
         app: simple-blog
     spec:
+      volumes:
+        # - name: static-assets
+        #   emptyDir: {}
+        - name: puma-sock
+          emptyDir: {}
       containers:
         - name: nginx
-          image: kinlong/simple_blog_nginx:master-20210513-5866078
+          image: kinlong/simple_blog_nginx:master-20210527-c028ed7
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/run/puma
+              name: puma-sock
+            # - mountPath: /usr/share/nginx/html
+            #   name: static-assets
+        - name: rails-web
+          image: kinlong/simple_blog_rails:20210527-master-c028ed7
+          command: ["bundle", "exec", "puma", "-C", "config/puma.rb", "-b", "unix:///var/run/puma/puma.sock"]
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: RAILS_LOG_TO_STDOUT
+              value: "1"
+          envFrom:
+            - secretRef:
+                name: simple-blog
+          volumeMounts:
+            - mountPath: /var/run/puma
+              name: puma-sock
+            # - mountPath: /opt/app/public
+            #   name: static-assets
