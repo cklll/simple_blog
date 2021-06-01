@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-simple-blog
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - simple-blog.projects.chankinlong.com
+    secretName: simple-blog-tls
+  rules:
+  - host: simple-blog.projects.chankinlong.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: simple-blog-service
+          servicePort: 80
