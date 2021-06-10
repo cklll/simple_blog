@@ -11,5 +11,7 @@ nginx_image="kinlong/simple_blog_nginx:${git_branch}-${date}-${git_hash}"
 docker build -f Dockerfile.prod.rails . -t "${rails_image}"
 docker build --build-arg rails_image=${rails_image} -f Dockerfile.prod.nginx . -t "${nginx_image}"
 
-docker push "${rails_image}"
-docker push "${nginx_image}"
+docker push "${rails_image}" &
+docker push "${nginx_image}" &
+
+wait

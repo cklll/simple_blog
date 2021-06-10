@@ -13,23 +13,19 @@ spec:
         app: simple-blog
     spec:
       volumes:
-        # - name: static-assets
-        #   emptyDir: {}
         - name: puma-sock
           emptyDir: {}
       containers:
         - name: nginx
-          image: kinlong/simple_blog_nginx:master-20210527-c028ed7
+          image: kinlong/simple_blog_nginx:master-20210605-07d5b8a
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           volumeMounts:
             - mountPath: /var/run/puma
               name: puma-sock
-            # - mountPath: /usr/share/nginx/html
-            #   name: static-assets
         - name: rails-web
-          image: kinlong/simple_blog_rails:20210527-master-c028ed7
+          image: kinlong/simple_blog_rails:20210610-master-07d5b8a
           command: ["bundle", "exec", "puma", "-C", "config/puma.rb", "-b", "unix:///var/run/puma/puma.sock"]
           imagePullPolicy: IfNotPresent
           ports:
@@ -45,5 +41,11 @@ spec:
           volumeMounts:
             - mountPath: /var/run/puma
               name: puma-sock
-            # - mountPath: /opt/app/public
-            #   name: static-assets
+        # TODO: this can be in another deployment as this doesn't need to be exposed with service
+        - name: rails-sidekiq
+          image: kinlong/simple_blog_rails:20210610-master-07d5b8a
+          command: ["bundle", "exec", "sidekiq"]
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: simple-blog

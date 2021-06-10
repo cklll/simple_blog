@@ -3,7 +3,6 @@ version: "3.9"
 services:
   db:
     image: postgres
-    restart: unless-stopped
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     ports:
@@ -13,7 +12,6 @@ services:
 
   redis:
     image: redis
-    restart: unless-stopped
 
   web:
     build: .

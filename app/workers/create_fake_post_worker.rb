@@ -2,7 +2,10 @@ class CreateFakePostWorker
   include Sidekiq::Worker
 
   def perform
-    uri = URI('http://web:3000/posts')
+    domain = Rails.configuration.application['app_domain']
+    protocol = Rails.configuration.application['app_protocol']
+
+    uri = URI("#{protocol}://#{domain}/posts")
     content = Faker::TvShows::SiliconValley.quote
     title = content[0..50]
     body = {

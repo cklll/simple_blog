@@ -1,3 +1,5 @@
 create_fake_post:
+  # TODO: the schedule may better to be controlled by environment variable
+  # so can update the app without building new container
   cron: "0 * * * *"
   class: "CreateFakePostWorker"

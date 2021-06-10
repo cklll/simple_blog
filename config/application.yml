@@ -1,0 +1,8 @@
+---
+development:
+  app_domain: 'web:3000'
+  app_protocol: 'http'
+
+production:
+  app_domain: 'simple-blog.projects.chankinlong.com'
+  app_protocol: 'https'
