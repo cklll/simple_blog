@@ -25,7 +25,7 @@ spec:
             - mountPath: /var/run/puma
               name: puma-sock
         - name: rails-web
-          image: kinlong/simple_blog_rails:20210610-master-07d5b8a
+          image: kinlong/simple_blog_rails:20210610-master-7eeedfe
           command: ["bundle", "exec", "puma", "-C", "config/puma.rb", "-b", "unix:///var/run/puma/puma.sock"]
           imagePullPolicy: IfNotPresent
           ports:
@@ -38,14 +38,18 @@ spec:
           envFrom:
             - secretRef:
                 name: simple-blog
+            - configMapRef:
+                name: simple-blog-rails
           volumeMounts:
             - mountPath: /var/run/puma
               name: puma-sock
         # TODO: this can be in another deployment as this doesn't need to be exposed with service
         - name: rails-sidekiq
-          image: kinlong/simple_blog_rails:20210610-master-07d5b8a
+          image: kinlong/simple_blog_rails:20210610-master-7eeedfe
           command: ["bundle", "exec", "sidekiq"]
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
                 name: simple-blog
+            - configMapRef:
+                name: simple-blog-rails

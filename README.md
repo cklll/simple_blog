@@ -32,9 +32,9 @@ ansible-vault edit ops/k8s/secrets.yml
 
 
 ## TODO
-- Set up cron job to create post regularly
 - Set up cron job to delete very old post (to keep DB small)
 - Not use ansible-vault to store K8s secret. Use something like HashiCorp Vault
 - Run Redis on K8s (learning purpose)
 - Run PostgreSQL on K8s (learning purpose)
-- Use environment variable to control cron schedule and other config (`application.yml`)
+- Move sidekiq cron out from web deployment
+- Add GitHub repo link to the website
