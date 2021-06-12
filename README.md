@@ -36,5 +36,5 @@ ansible-vault edit ops/k8s/secrets.yml
 - Not use ansible-vault to store K8s secret. Use something like HashiCorp Vault
 - Run Redis on K8s (learning purpose)
 - Run PostgreSQL on K8s (learning purpose)
-- Move sidekiq cron out from web deployment
 - Add GitHub repo link to the website
+- Randomise post time

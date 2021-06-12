@@ -31,6 +31,8 @@ services:
       REDIS_PASSWORD: '' # only used in production
       REDIS_PORT: 6379
       REDIS_DB: 0
+      SIDEKIQ_USERNAME: sidekiq
+      SIDEKIQ_PASSWORD_HASH: f52e4cd0b29862b21d0e1f6850b9d9f4c95b43d9c64825552085150502605472 # sidekiq
     depends_on:
       - db
       - redis

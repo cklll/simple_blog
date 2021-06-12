@@ -24,10 +24,18 @@ spec:
           volumeMounts:
             - mountPath: /var/run/puma
               name: puma-sock
+          startupProbe:
+            httpGet:
+              path: /posts
+              port: 80
+              scheme: HTTP
+            failureThreshold: 50
+            periodSeconds: 5
         - name: rails-web
-          image: kinlong/simple_blog_rails:20210611-master-bca16ef
+          image: kinlong/simple_blog_rails:20210613-master-a9ab38a
           command: ["bundle", "exec", "puma", "-C", "config/puma.rb", "-b", "unix:///var/run/puma/puma.sock"]
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          # TODO: do I need port if I have unix socket?
           ports:
             - containerPort: 3000
           env:
