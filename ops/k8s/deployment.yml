@@ -43,6 +43,10 @@ spec:
               value: "3000"
             - name: RAILS_LOG_TO_STDOUT
               value: "1"
+            - name: RAILS_MIN_THREADS
+              value: "1"
+            - name: RAILS_MAX_THREADS
+              value: "2"
           envFrom:
             - secretRef:
                 name: simple-blog
