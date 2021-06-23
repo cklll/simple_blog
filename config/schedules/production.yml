@@ -1,3 +1,3 @@
-create_fake_post:
+schedule_create_fake_post:
   cron: "<%= ENV['SIDEKIQ_CRON_SCHEDULE_CREATE_FAKE_POST'] %>"
-  class: "CreateFakePostWorker"
+  class: "ScheduleCreateFakePostWorker"

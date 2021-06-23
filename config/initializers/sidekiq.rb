@@ -16,5 +16,5 @@ if Sidekiq.server?
   template = ERB.new File.new(schedule_file).read
   schedule_hash = YAML.load template.result(binding)
 
-  Sidekiq::Cron::Job.load_from_hash(schedule_hash)
+  Sidekiq::Cron::Job.load_from_hash!(schedule_hash)
 end

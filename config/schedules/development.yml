@@ -1,3 +1,3 @@
-create_fake_post:
+schedule_create_fake_post:
   cron: "* * * * *"
-  class: "CreateFakePostWorker"
+  class: "ScheduleCreateFakePostWorker"

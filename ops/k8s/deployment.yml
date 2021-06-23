@@ -32,7 +32,7 @@ spec:
             failureThreshold: 50
             periodSeconds: 5
         - name: rails-web
-          image: kinlong/simple_blog_rails:20210613-master-a9ab38a
+          image: kinlong/simple_blog_rails:20210618-master-0d8e37e
           command: ["bundle", "exec", "puma", "-C", "config/puma.rb", "-b", "unix:///var/run/puma/puma.sock"]
           imagePullPolicy: Always
           # TODO: do I need port if I have unix socket?
