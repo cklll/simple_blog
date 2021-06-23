@@ -46,7 +46,9 @@ spec:
             - name: RAILS_MIN_THREADS
               value: "1"
             - name: RAILS_MAX_THREADS
-              value: "2"
+              value: "1"
+            - name: WEB_CONCURRENCY
+              value: "1"
           envFrom:
             - secretRef:
                 name: simple-blog

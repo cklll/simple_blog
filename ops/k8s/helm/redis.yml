@@ -1,0 +1,38 @@
+---
+image:
+  pullPolicy: IfNotPresent
+  debug: false
+
+architecture: replication
+
+auth:
+  enabled: true
+  # https://docs.bitnami.com/kubernetes/infrastructure/redis/administration/use-password-file/
+  usePasswordFiles: true
+  existingSecret: simple-blog-redis-password
+
+master:
+  resources:
+    limits:
+  podLabels:
+    name: simple-blog-redis
+
+  # It seems not supported in DigitalOcean K8s
+  persistence:
+    enabled: false
+
+replica:
+  replicaCount: 1
+  resources:
+    limits:
+  podLabels:
+    name: simple-blog-redis
+  persistence:
+    enabled: false
+  autoscaling:
+    enabled: false
+
+metrics:
+  enabled: true
+
+# TODO: add TLS

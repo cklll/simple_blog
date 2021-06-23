@@ -25,7 +25,7 @@ kubectl apply -f ops/k8s/file.yml
 
 ### Update K8s secrets
 I am using ansible-vault to store the secrets.
-```
+```sh
 pip install -r requirements.txt
 ansible-vault edit ops/k8s/secrets.yml
 ```
@@ -34,7 +34,5 @@ ansible-vault edit ops/k8s/secrets.yml
 ## TODO
 - Set up cron job to delete very old post (to keep DB small)
 - Not use ansible-vault to store K8s secret. Use something like HashiCorp Vault
-- Run Redis on K8s (learning purpose)
 - Run PostgreSQL on K8s (learning purpose)
 - Add GitHub repo link to the website
-- Randomise post time

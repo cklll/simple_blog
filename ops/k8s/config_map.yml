@@ -6,5 +6,5 @@ data:
   APP_DOMAIN: simple-blog.projects.chankinlong.com
   APP_PROTOCOL: https
 
-  SIDEKIQ_CONCURRENCY: '2'
+  SIDEKIQ_CONCURRENCY: '1'
   SIDEKIQ_CRON_SCHEDULE_CREATE_FAKE_POST: "0 * * * *"
